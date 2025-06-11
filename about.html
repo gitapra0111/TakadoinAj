@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Tentang Kami - Takadoin.Aj</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link href="css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        .about-hero {
+            background: linear-gradient(120deg, #f8fafc 0%, #e0c3fc 100%);
+            min-height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .about-img {
+            max-width: 320px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.10);
+        }
+        .about-section {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+            padding: 2.5rem 2rem;
+            margin-top: -80px;
+            margin-bottom: 40px;
+        }
+        .carousel-caption {
+          background: rgba(0,0,0,0.45);
+          border-radius: 12px;
+          padding: 1.5rem;
+        }
+        .carousel-item img {
+          object-fit: cover;
+          height: 350px;
+          width: 100%;
+        }
+        @media (min-width: 992px) {
+          .carousel-item img {
+            height: 420px;
+          }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="awal.php">
+          <img src="assets/favicon.ico" alt="Logo" style="height: 32px; vertical-align: middle; margin-right: 8px"/>
+          Takadoin.Aj
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#produk">Shop</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero About -->
+    <section class="about-hero">
+        <div class="container text-center">
+            <img src="img/bg1.jpg" alt="Tentang Takadoin.Aj" class="about-img mb-4 animate__animated animate__fadeInDown">
+            <h1 class="display-5 fw-bold text-dark animate__animated animate__fadeInUp">Tentang Takadoin.Aj</h1>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <section class="about-section container animate__animated animate__fadeInUp">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <h2 class="fw-bold mb-3 text-warning"><i class="bi bi-flower1"></i> Siapa Kami?</h2>
+                <p class="mb-3" style="font-size:1.15rem;">
+                    <b>Takadoin.Aj</b> adalah toko bunga online terpercaya yang berdiri sejak 2024. Kami menyediakan berbagai pilihan buket bunga segar, bunga papan, dan rangkaian bunga premium untuk berbagai momen spesial Anda.
+                </p>
+                <ul class="mb-3">
+                    <li>Pengiriman cepat & aman ke seluruh Indonesia</li>
+                    <li>Produk selalu fresh & berkualitas</li>
+                    <li>Harga bersaing & banyak promo menarik</li>
+                    <li>Pemesanan mudah, bisa langsung dari website</li>
+                </ul>
+                <p>
+                    Kami percaya setiap bunga membawa pesan dan kebahagiaan. Takadoin.Aj siap membantu Anda menyampaikan perasaan melalui bunga terbaik!
+                </p>
+            </div>
+            <div class="col-lg-5 text-center">
+                <img src="img/bg2.jpg" alt="Buket Bunga" class="img-fluid rounded shadow animate__animated animate__zoomIn" style="max-height:260px;">
+            </div>
+        </div>
+    </section>
+
+    <!-- Header dengan Carousel/Slider -->
+<header class="bg-dark position-relative">
+  <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <!-- Slide 1 -->
+      <div class="carousel-item active">
+        <img src="img/bg1.jpg" class="d-block w-100" alt="Buket Bunga 1">
+        <div class="carousel-caption d-none d-md-block animate__animated animate__fadeInDown">
+          <h1 class="display-4 fw-bold">Takadoin.Aj</h1>
+          <p class="lead">Temukan dan pesan bunga terbaik untuk momen spesial Anda.<br>Pengiriman cepat & kualitas terjamin!</p>
+          <a href="awal.php" class="btn btn-warning btn-lg mt-3"><i class="bi bi-flower1"></i> Lihat Produk</a>
+        </div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="carousel-item">
+        <img src="img/bg1.jpg" class="d-block w-100" alt="Buket Bunga 2">
+        <div class="carousel-caption d-none d-md-block animate__animated animate__fadeInDown">
+          <h1 class="display-4 fw-bold">Promo Juni!</h1>
+          <p class="lead">Diskon 10% untuk pembelian di atas Rp. 500.000!</p>
+          <a href="#shoppingCart" data-bs-toggle="offcanvas" data-bs-target="#shoppingCart" class="btn btn-outline-light btn-lg mt-3"><i class="bi bi-cart"></i> Lihat Keranjang</a>
+        </div>
+      </div>
+      <!-- Slide 3 -->
+      <div class="carousel-item">

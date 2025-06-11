@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Takadoin.Aj</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <link rel="stylesheet" href="" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f8f9fa;
+      color: #222;
+    }
+    .navbar {
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      padding: 0.7rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.3rem;
+      color: #ffb300;
+      text-decoration: none;
+    }
+    .navbar-brand img {
+      height: 32px;
+      margin-right: 10px;
+    }
+    .navbar-nav {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .navbar-nav a {
+      color: #222;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .navbar-nav a:hover {
+      color: #ffb300;
+    }
+    .cart-btn {
+      background: #fffbe7;
+      border: 1px solid #ffb300;
+      color: #ffb300;
+      border-radius: 30px;
+      padding: 0.5rem 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      position: relative;
+    }
+    .cart-btn:hover {
+      background: #ffb300;
+      color: #fff;
+    }
+    .cart-count {
+      background: #ffb300;
+      color: #fff;
+      border-radius: 50%;
+      padding: 0.2em 0.6em;
+      font-size: 0.9em;
+      position: absolute;
+      top: -8px;
+      right: -10px;
+    }
+    .hero {
+      background: linear-gradient(120deg, #ffe082 0%, #fffde7 100%);
+      padding: 3rem 0 2rem 0;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      color: #ffb300;
+      margin-bottom: 0.5rem;
+    }
+    .hero p {
+      color: #555;
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .produk-section {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .produk-title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #ffb300;
+      margin-bottom: 2rem;
+    }
+    .produk-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+    }
+    .produk-card {
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .produk-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 8px 24px rgba(255,179,0,0.15);
+    }
+    .produk-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .produk-card .badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: #ff5252;
+      color: #fff;
+      padding: 0.3em 0.8em;
+      border-radius: 12px;
+      font-size: 0.9em;
+      font-weight: bold;
+    }
+    .produk-card .card-body {
+      padding: 1.2rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .produk-card .produk-nama {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: #222;
+    }
+    .produk-card .produk-harga {
+      font-size: 1rem;
+      color: #ffb300;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .produk-card .produk-harga-old {
+      text-decoration: line-through;
+      color: #aaa;
+      font-size: 0.95em;
+      margin-right: 0.5em;
+    }
+    .produk-card .add-to-cart {
+      background: #ffb300;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6em 1.2em;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 1em;
+      transition: background 0.2s;
+    }
+    .produk-card .add-to-cart:hover {
+      background: #ffa000;
+    }
+    /* Cart Modal */
+    .cart-modal {
+      display: none;
+      position: fixed;
+      top: 0; right: 0;
+      width: 350px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -2px 0 16px rgba(0,0,0,0.12);
+      z-index: 2000;
+      padding: 2rem 1.2rem 1rem 1.2rem;
+      flex-direction: column;
+      transition: transform 0.3s;
+    }
+    .cart-modal.active {
+      display: flex;
+    }
+    .cart-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem;
+    }
+    .cart-modal-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #ffb300;
+    }
+    .cart-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #888;
+      cursor: pointer;
+    }
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 0.7rem;
+    }
+    .cart-item img {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 0.8rem;
+    }
+    .cart-item-info {
+      flex: 1;
+    }
+    .cart-item-title {
+      font-weight: bold;
+      font-size: 1rem;
+      margin-bottom: 0.2em;
+    }
+    .cart-item-price {
+      color: #ffb300;
+      font-size: 0.95em;
+    }
+    .cart-total {
+      font-weight: bold;
+      color: #ffb300;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      text-align: right;
+    }
+    .cart-form label {
+      font-size: 0.95em;
+      color: #555;
+      margin-bottom: 0.2em;
+      display: block;
+    }
+    .cart-form input, .cart-form textarea {
+      width: 100%;
+      padding: 0.5em;
+      margin-bottom: 0.7em;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+    .cart-checkout {
+      background: #ffb300;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.7em 1.2em;
+      font-weight: bold;
+      width: 100%;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 0.5em;
+    }
+    .cart-checkout:hover {
+      background: #ffa000;
+    }
+    @media (max-width: 600px) {
+      .produk-grid {
+        grid-template-columns: 1fr;
+      }
+      .cart-modal {
+        width: 100vw;
+        padding: 1.2rem 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a class="navbar-brand" href="#">
+      <img src="assets/favicon.ico" alt="Logo" />
+      Takadoin.Aj
+    </a>
+    <ul class="navbar-nav">
+      <li><a href="#">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="#">Kontak</a></li>
+      <li><a href="#">Shop</a></li>
+    </ul>
+    <button class="cart-btn" id="cart-btn">
+      🛒 Cart <span class="cart-count" id="cart-count">0</span>
+    </button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Selamat Datang di Takadoin.Aj</h1>
+    <p>Koleksi bunga segar dan indah untuk setiap momen spesial Anda.</p>
+  </section>
+
+  <!-- Produk -->
+  <section class="produk-section">
+    <div class="produk-title">Katalog Bunga</div>
+    <div class="produk-grid" id="produk-list">
+      <!-- Produk akan di-generate oleh JS -->
+    </div>
+  </section>
+
+  <!-- Cart Modal -->
+  <div class="cart-modal" id="cart-modal">
+    <div class="cart-modal-header">
+      <span class="cart-modal-title">Shopping Cart</span>
+      <button class="cart-close" id="cart-close">&times;</button>
+    </div>
+    <div class="cart-items" id="cart-items"></div>
+    <div class="cart-total" id="cart-total">Total: Rp. 0</div>
+    <form class="cart-form" id="cart-form">
+      <label>Nama</label>
+      <input type="text" name="nama" required />
+      <label>Alamat Rumah</label>
+      <textarea name="alamat" rows="2" required></textarea>
+      <label>Email</label>
+      <input type="email" name="email" required />
+      <label>No. Telp</label>
+      <input type="text" name="no" required />
+      <button type="submit" class="cart-checkout">Checkout</button>
+    </form>
+  </div>
+
+  <footer style="background:#222; color:#fff; text-align:center; padding:1.5rem 0; margin-top:2rem;">
+    &copy; Takadoin.Aj 2025
+  </footer>
+
+  <script>
+    // Contoh data produk statis
+    const produkData = [
+      {
+        nama: "Bouquet Mawar Merah",
+        harga: 120000,
+        harga_diskon: 95000,
+        status: "sale",
+        gambar: "img/Redyfly.jpg"
+      },
+      {
+        nama: "Bouquet Lily Putih",
+        harga: 135000,
+        status: "normal",
+        gambar: "img/bunga5.jpeg"
+      },
+      {
+        nama: "Bouquet Tulip Pink",
+        harga: 150000,
+        status: "normal",
+        gambar: "img/Pearl.jpg"
+      },
+      {
+        nama: "Bouquet Sunflower",
+        harga: 110000,
+        harga_diskon: 90000,
+        status: "sale",
+        gambar: "img/Redpeach.jpg"
+      }
+    ];
+
+    // Render produk
+    function renderProduk() {
+      const produkList = document.getElementById('produk-list');
+      produkList.innerHTML = '';
+      produkData.forEach((p, idx) => {
+        produkList.innerHTML += `
+          <div class="produk-card">
+            ${p.status === 'sale' ? `<div class="badge">SALE</div>` : ''}
+            <img src="${p.gambar}" alt="${p.nama}" />
+            <div class="card-body">
+              <div class="produk-nama">${p.nama}</div>
+              <div>
+                ${p.status === 'sale' && p.harga_diskon ? `<span class="produk-harga-old">Rp. ${p.harga.toLocaleString()}</span>` : ''}
+                <span class="produk-harga">Rp. ${(p.harga_diskon || p.harga).toLocaleString()}</span>
+              </div>
+              <button class="add-to-cart" data-idx="${idx}">Add to Cart</button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // Cart logic
+    let cart = [];
+    function updateCartCount() {
+      document.getElementById('cart-count').textContent = cart.length;
+    }
+    function renderCart() {
+      const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+      cartItems.innerHTML = '';
+      let total = 0;
+      cart.forEach((item, i) => {
+        total += item.harga;
+        cartItems.innerHTML += `
+          <div class="cart-item">
+            <img src="${item.gambar}" alt="${item.nama}" />
+            <div class="cart-item-info">
+              <div class="cart-item-title">${item.nama}</div>
+              <div class="cart-item-price">Rp. ${item.harga.toLocaleString()}</div>
+            </div>
+            <button style="background:none;border:none;color:#ff5252;font-size:1.2em;cursor:pointer;" onclick="removeCartItem(${i})">&times;</button>
+          </div>
+        `;
+      });
+      cartTotal.textContent = `Total: Rp. ${total.toLocaleString()}`;
+      updateCartCount();
+    }
+    function removeCartItem(idx) {
+      cart.splice(idx, 1);
+      renderCart();
+    }
+    window.removeCartItem = removeCartItem;
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProduk();
+      updateCartCount();
+
+      // Add to cart
+      document.getElementById('produk-list').addEventListener('click', function(e) {
+        if (e.target.classList.contains('add-to-cart')) {
+          const idx = e.target.getAttribute('data-idx');
+          const p = produkData[idx];
+          cart.push({
+            nama: p.nama,
+            harga: p.harga_diskon || p.harga,
+            gambar: p.gambar
+          });
+          renderCart();
+        }
+      });
+
+      // Cart modal open/close
+      const cartModal = document.getElementById('cart-modal');
+      document.getElementById('cart-btn').onclick = () => {
+        cartModal.classList.add('active');
+        renderCart();
+      };
+      document.getElementById('cart-close').onclick = () => {
+        cartModal.classList.remove('active');
+      };
+
+      // Checkout
+      document.getElementById('cart-form').onsubmit = function(e) {
+        e.preventDefault();
+        if (cart.length === 0) {
+          alert('Keranjang masih kosong!');
+          return;
+        }
+        alert('Pesanan berhasil dikirim!\nTerima kasih, ' + this.nama.value + '!');
+        cart = [];
+        renderCart();
+        this.reset();
+        cartModal.classList.remove('active');
+      };
+    });
+  </script>
+</body>
+</html>
